@@ -93,22 +93,22 @@ class MakeDelete(LoginRequiredMixin, View):
 # These views do not need a form because CreateView, etc.
 # Build a form object dynamically based on the fields
 # value in the constructor attributes
-# class AutoCreate(LoginRequiredMixin, CreateView):
-#     model = Auto
-#     fields = "__all__"
-#     success_url = reverse_lazy("autos:all")
+class AutoCreate(LoginRequiredMixin, CreateView):
+    model = Auto
+    fields = "__all__"
+    success_url = reverse_lazy("autos:all")
 
 
-# class AutoUpdate(LoginRequiredMixin, UpdateView):
-#     model = Auto
-#     fields = "__all__"
-#     success_url = reverse_lazy("autos:all")
+class AutoUpdate(LoginRequiredMixin, UpdateView):
+    model = Auto
+    fields = "__all__"
+    success_url = reverse_lazy("autos:all")
 
 
-# class AutoDelete(LoginRequiredMixin, DeleteView):
-#     model = Auto
-#     fields = "__all__"
-#     success_url = reverse_lazy("autos:all")
+class AutoDelete(LoginRequiredMixin, DeleteView):
+    model = Auto
+    fields = "__all__"
+    success_url = reverse_lazy("autos:all")
 
 
 # We use reverse_lazy rather than reverse in the class attributes
