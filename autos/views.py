@@ -51,42 +51,42 @@ class MakeCreate(LoginRequiredMixin, View):
 # MakeUpdate has code to implement the get/post/validate/store flow
 # AutoUpdate (below) is doing the same thing with no code
 # and no form by extending UpdateView
-# class MakeUpdate(LoginRequiredMixin, View):
-#     model = Make
-#     success_url = reverse_lazy("autos:all")
-#     template = "autos/make_form.html"
+class MakeUpdate(LoginRequiredMixin, View):
+    model = Make
+    success_url = reverse_lazy("autos:all")
+    template = "autos/make_form.html"
 
-#     def get(self, request, pk):
-#         make = get_object_or_404(self.model, pk=pk)
-#         form = MakeForm(instance=make)
-#         ctx = {"form": form}
-#         return render(request, self.template, ctx)
+    def get(self, request, pk):
+        make = get_object_or_404(self.model, pk=pk)
+        form = MakeForm(instance=make)
+        ctx = {"form": form}
+        return render(request, self.template, ctx)
 
-#     def post(self, request, pk):
-#         make = get_object_or_404(self.model, pk=pk)
-#         form = MakeForm(request.POST, instance=make)
-#         if not form.is_valid():
-#             ctx = {"form": form}
-#             return render(request, self.template, ctx)
+    def post(self, request, pk):
+        make = get_object_or_404(self.model, pk=pk)
+        form = MakeForm(request.POST, instance=make)
+        if not form.is_valid():
+            ctx = {"form": form}
+            return render(request, self.template, ctx)
 
-#         form.save()
-#         return redirect(self.success_url)
+        form.save()
+        return redirect(self.success_url)
 
 
-# class MakeDelete(LoginRequiredMixin, View):
-#     model = Make
-#     success_url = reverse_lazy("autos:all")
-#     template = "autos/make_confirm_delete.html"
+class MakeDelete(LoginRequiredMixin, View):
+    model = Make
+    success_url = reverse_lazy("autos:all")
+    template = "autos/make_confirm_delete.html"
 
-#     def get(self, request, pk):
-#         make = get_object_or_404(self.model, pk=pk)
-#         ctx = {"make": make}
-#         return render(request, self.template, ctx)
+    def get(self, request, pk):
+        make = get_object_or_404(self.model, pk=pk)
+        ctx = {"make": make}
+        return render(request, self.template, ctx)
 
-#     def post(self, request, pk):
-#         make = get_object_or_404(self.model, pk=pk)
-#         make.delete()
-#         return redirect(self.success_url)
+    def post(self, request, pk):
+        make = get_object_or_404(self.model, pk=pk)
+        make.delete()
+        return redirect(self.success_url)
 
 
 # Take the easy way out on the main table
