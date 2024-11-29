@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 
 from autos.models import Auto, Make
 
-# from autos.forms import MakeForm
+from autos.forms import MakeForm
 
 # Create your views here.
 
@@ -27,30 +27,30 @@ class MakeView(LoginRequiredMixin, View):
         return render(request, "autos/make_list.html", ctx)
 
 
-# # We use reverse_lazy() because we are in "constructor attribute" code
-# # that is run before urls.py is completely loaded
-# class MakeCreate(LoginRequiredMixin, View):
-#     template = "autos/make_form.html"
-#     success_url = reverse_lazy("autos:all")
+# We use reverse_lazy() because we are in "constructor attribute" code
+# that is run before urls.py is completely loaded
+class MakeCreate(LoginRequiredMixin, View):
+    template = "autos/make_form.html"
+    success_url = reverse_lazy("autos:all")
 
-#     def get(self, request):
-#         form = MakeForm()
-#         ctx = {"form": form}
-#         return render(request, self.template, ctx)
+    def get(self, request):
+        form = MakeForm()
+        ctx = {"form": form}
+        return render(request, self.template, ctx)
 
-#     def post(self, request):
-#         form = MakeForm(request.POST)
-#         if not form.is_valid():
-#             ctx = {"form": form}
-#             return render(request, self.template, ctx)
+    def post(self, request):
+        form = MakeForm(request.POST)
+        if not form.is_valid():
+            ctx = {"form": form}
+            return render(request, self.template, ctx)
 
-#         make = form.save()
-#         return redirect(self.success_url)
+        form.save()
+        return redirect(self.success_url)
 
 
-# # MakeUpdate has code to implement the get/post/validate/store flow
-# # AutoUpdate (below) is doing the same thing with no code
-# # and no form by extending UpdateView
+# MakeUpdate has code to implement the get/post/validate/store flow
+# AutoUpdate (below) is doing the same thing with no code
+# and no form by extending UpdateView
 # class MakeUpdate(LoginRequiredMixin, View):
 #     model = Make
 #     success_url = reverse_lazy("autos:all")
@@ -89,10 +89,10 @@ class MakeView(LoginRequiredMixin, View):
 #         return redirect(self.success_url)
 
 
-# # Take the easy way out on the main table
-# # These views do not need a form because CreateView, etc.
-# # Build a form object dynamically based on the fields
-# # value in the constructor attributes
+# Take the easy way out on the main table
+# These views do not need a form because CreateView, etc.
+# Build a form object dynamically based on the fields
+# value in the constructor attributes
 # class AutoCreate(LoginRequiredMixin, CreateView):
 #     model = Auto
 #     fields = "__all__"
@@ -111,11 +111,11 @@ class MakeView(LoginRequiredMixin, View):
 #     success_url = reverse_lazy("autos:all")
 
 
-# # We use reverse_lazy rather than reverse in the class attributes
-# # because views.py is loaded by urls.py and in urls.py as_view() causes
-# # the constructor for the view class to run before urls.py has been
-# # completely loaded and urlpatterns has been processed.
+# We use reverse_lazy rather than reverse in the class attributes
+# because views.py is loaded by urls.py and in urls.py as_view() causes
+# the constructor for the view class to run before urls.py has been
+# completely loaded and urlpatterns has been processed.
 
-# # References
+# References
 
-# # https://docs.djangoproject.com/en/4.2/ref/class-based-views/generic-editing/#createview
+# https://docs.djangoproject.com/en/4.2/ref/class-based-views/generic-editing/#createview
