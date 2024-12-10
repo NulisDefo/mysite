@@ -32,6 +32,7 @@ urlpatterns = [
     path("autos/", include("autos.urls")),
     path("cats/", include("cats.urls")),
     path("polls/", include("polls.urls")),
+    path("ads/", include("ads.urls")),
 ]
 
 # Serve the static HTML

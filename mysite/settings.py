@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "polls.apps.PollsConfig",
     "autos.apps.AutosConfig",
     "cats.apps.CatsConfig",
+    "ads.apps.AdsConfig",
 ]
 
 # When we get to tagging

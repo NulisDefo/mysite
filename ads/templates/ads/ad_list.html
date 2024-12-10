@@ -1,0 +1,29 @@
+{% extends "base_bootstrap.html" %}
+{% block content %}
+    <h1>Ads</h1>
+    <p>
+        {% if ad_list %}
+            <ul>
+                {% for ad in ad_list %}
+                    <li>
+                        {% comment %} <a href="{% url 'ads:ad_detail' ad.id %}">{{ ad.title }}</a> {% endcomment %}
+                        {% comment %} {% if ad.owner == user %} {% endcomment %}
+                            {% comment %} (<a href="{% url 'ads:ad_update' ad.id %}">Edit</a> | {% endcomment %}
+                            {% comment %} <a href="{% url 'ads:ad_delete' ad.id %}">Delete</a>) {% endcomment %}
+                        {% comment %} {% endif %} {% endcomment %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no ads in the database.</p>
+        {% endif %}
+    </p>
+    <p>
+        {% comment %} <a href="{% url 'ads:ad_create' %}">Add an Ad</a> | {% endcomment %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}?next={% url 'ads:all' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'ads:all' %}">Login</a>
+        {% endif %}
+    </p>
+{% endblock %}
