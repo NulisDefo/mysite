@@ -19,12 +19,12 @@ class AdDetailView(OwnerDetailView):
 
 class AdCreateView(OwnerCreateView):
     model = Ad
-    fields_exclude = ["owner", "created_at", "updated_at"]
+    fields = ["title", "price", "text"]
 
 
 class AdUpdateView(OwnerUpdateView):
     model = Ad
-    fields_exclude = ["owner", "created_at", "updated_at"]
+    fields = ["title", "price", "text"]
 
 
 class AdDeleteView(OwnerDeleteView):
