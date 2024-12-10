@@ -13,20 +13,21 @@ class AdListView(OwnerListView):
     template_name = "ads/ad_list.html"
 
 
-# class ArticleDetailView(OwnerDetailView):
-#     model = Article
+class AdDetailView(OwnerDetailView):
+    model = Ad
 
-# class ArticleCreateView(OwnerCreateView):
-#     model = Article
-#     # List the fields to copy from the Article model to the Article form
+
+# class AdCreateView(OwnerCreateView):
+#     model = Ad
+#     # List the fields to copy from the Ad model to the Ad form
 #     fields = ['title', 'text']
 
-# class ArticleUpdateView(OwnerUpdateView):
-#     model = Article
+# class AdUpdateView(OwnerUpdateView):
+#     model = Ad
 #     fields = ['title', 'text']
 #     # This would make more sense
 #     # fields_exclude = ['owner', 'created_at', 'updated_at']
 
 
-# class ArticleDeleteView(OwnerDeleteView):
-#     model = Article
+# class AdDeleteView(OwnerDeleteView):
+#     model = Ad

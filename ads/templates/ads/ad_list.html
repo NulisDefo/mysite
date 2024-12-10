@@ -6,7 +6,7 @@
             <ul>
                 {% for ad in ad_list %}
                     <li>
-                        {% comment %} <a href="{% url 'ads:ad_detail' ad.id %}">{{ ad.title }}</a> {% endcomment %}
+                        <a href="{% url 'ads:ad_detail' ad.id %}">{{ ad.title }}</a>
                         {% comment %} {% if ad.owner == user %} {% endcomment %}
                             {% comment %} (<a href="{% url 'ads:ad_update' ad.id %}">Edit</a> | {% endcomment %}
                             {% comment %} <a href="{% url 'ads:ad_delete' ad.id %}">Delete</a>) {% endcomment %}
