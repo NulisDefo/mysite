@@ -18,6 +18,7 @@ import os
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views.static import serve
 from django.views.generic import TemplateView
@@ -33,7 +34,7 @@ urlpatterns = [
     path("cats/", include("cats.urls")),
     path("polls/", include("polls.urls")),
     path("ads/", include("ads.urls")),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # Serve the static HTML
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
