@@ -13,7 +13,7 @@ CSRF_TRUSTED_ORIGINS = (
     if "WEBSITE_HOSTNAME" in os.environ
     else []
 )
-DEBUG = True
+DEBUG = False
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
