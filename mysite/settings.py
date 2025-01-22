@@ -3,6 +3,7 @@ Django settings for samples project.
 """
 
 import os
+from pathlib import Path
 
 from django.conf.global_settings import DATABASES
 
@@ -13,21 +14,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_NAME = "Mysite"  # Add
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "g$iqqu&*mw4_sg3(#ld0sqaalxebel&168^yj%i&sgrw(fmn@w"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Configure the domain name using the environment variable
-# that Azure automatically creates for us.
-ALLOWED_HOSTS = (
-    [os.environ["WEBSITE_HOSTNAME"]] if "WEBSITE_HOSTNAME" in os.environ else []
-)
-CSRF_TRUSTED_ORIGINS = (
-    ["https://" + os.environ["WEBSITE_HOSTNAME"]]
-    if "WEBSITE_HOSTNAME" in os.environ
-    else []
-)
+ALLOWED_HOSTS = []
+if "CODESPACE_NAME" in os.environ:
+    CSRF_TRUSTED_ORIGINS = [
+        f'https://{os.getenv("CODESPACE_NAME")}-8000.{os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")}'
+    ]
 
 # Application definition
 
@@ -100,30 +96,13 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DBNAME'),
-#         'HOST': os.environ.get('DBHOST'),
-#         'USER': os.environ.get('DBUSER'),
-#         'PASSWORD': os.environ.get('DBPASS'),
-#         # 'ENGINE': 'django.db.backends.postgresql',
-#         # 'NAME': 'mysiteSample',
-#         # 'HOST': '127.0.0.1',
-#         # 'USER': 'postgres',
-#         # 'PASSWORD': 'ComplexPassword123',
-#     }
-# }
-
-conn_str = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
-conn_str_params = {pair.split('=')[0]: pair.split('=')[1] for pair in conn_str.split(' ')}
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': conn_str_params['dbname'],
-        'HOST': conn_str_params['host'],
-        'USER': conn_str_params['user'],
-        'PASSWORD': conn_str_params['password'],
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DBNAME"),
+        "HOST": os.environ.get("DBHOST"),
+        "USER": os.environ.get("DBUSER"),
+        "PASSWORD": os.environ.get("DBPASS"),
     }
 }
 
@@ -133,21 +112,6 @@ DATABASES = {
 #         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
 #     }
 # }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "RimasK$ads",
-#         "USER": "RimasK",
-#         "PASSWORD": "ComplexPassword123",
-#         "HOST": "RimasK.mysql.pythonanywhere-services.com",
-#         # "HOST": "localhost",
-#         "OPTIONS": {
-#             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
-#         },
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -185,11 +149,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+STATIC_URL = "static/"
 
 # Add the settings below
 
